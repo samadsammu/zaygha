@@ -1,0 +1,9 @@
+<section class="categories">
+    <div class="category-card" *ngFor="let cat of categories">
+        <div class="card-content">
+            <h3 class="card-title">{{cat.title}}</h3>
+            <p class="card-subtitle">{{cat.subtitle}}</p>
+            <a [routerLink]="cat.link" class="card-button">{{cat.buttonText}}</a>
+        </div>
+    </div>
+</section>

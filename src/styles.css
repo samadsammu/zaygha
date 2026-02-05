@@ -1,0 +1,75 @@
+:root {
+    --primary-gold: #d4af37;
+    --dark-gold: #b8962e;
+    --light-gold: #f2d97c;
+    --brand-black: #050505;
+    --soft-black: #111111;
+    --cream-accent: #f7ecd0;
+    --text-light: #ffffff;
+    --text-dark: #1a1a1a;
+    --border-gold: #d4af37;
+    --page-bg: #000000;
+
+    /* Premium Gradients */
+    --gold-gradient: linear-gradient(135deg, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    --gold-text-gradient: linear-gradient(to right, #bf953f, #fcf6ba, #b38728, #fbf5b7, #aa771c);
+    --black-gradient: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #000;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--dark-gold);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--primary-gold);
+}
+
+/* Utility Class for Gold Text */
+.text-gold-gradient {
+    background: var(--gold-text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 0px 0px rgba(255, 255, 255, 0.1);
+    /* Subtle crispness */
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--page-bg);
+    color: var(--text-light);
+    height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+* {
+    box-sizing: border-box;
+}

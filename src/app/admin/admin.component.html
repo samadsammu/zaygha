@@ -1,0 +1,184 @@
+<div class="admin-page">
+    <div class="admin-container">
+        <aside class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li class="active">Add Product</li>
+                <li>Manage Orders (Coming Soon)</li>
+                <li>Settings (Coming Soon)</li>
+            </ul>
+        </aside>
+
+        <main class="admin-content">
+            <header class="content-header">
+                <h1 class="page-title">Product Management</h1>
+                <p class="subtitle">Manage your inventory efficiently</p>
+
+                <div class="admin-tabs">
+                    <button class="tab-btn" [class.active]="activeTab === 'stock'" (click)="switchTab('stock')">
+                        📦 Stock Inventory
+                    </button>
+                    <button class="tab-btn" [class.active]="activeTab === 'add'" (click)="switchTab('add')">
+                        ➕ Add Product
+                    </button>
+                </div>
+            </header>
+
+            <div *ngIf="message" class="alert" [ngClass]="{'error': isError, 'success': !isError}">
+                {{ message }}
+            </div>
+
+            <!-- TAB: STOCK INVENTORY -->
+            <div *ngIf="activeTab === 'stock'" class="stock-view">
+                <div class="filter-bar">
+                    <input type="text" [(ngModel)]="filterText" (input)="filterStock()" placeholder="Search products..."
+                        class="search-input">
+
+                    <select [(ngModel)]="selectedCategory" (change)="filterStock()" class="filter-select">
+                        <option value="">All Categories</option>
+                        <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                    </select>
+                </div>
+
+                <div class="table-container">
+                    <table class="stock-table">
+                        <thead>
+                            <tr>
+                                <th>Image</th>
+                                <th>Name</th>
+                                <th>Category</th>
+                                <th>Purchased (₹)</th>
+                                <th>Selling (₹)</th>
+                                <th>Profit (₹)</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let p of paginatedStock">
+                                <td>
+                                    <img [src]="p.imageUrl" alt="img" class="table-img" loading="lazy"
+                                        (error)="p.imageUrl='assets/placeholder.jpg'">
+                                </td>
+                                <td class="product-name">{{ p.name }}</td>
+                                <td>{{ p.category }}</td>
+                                <td class="buy-price">₹{{ p.purchasedPrice || 0 }}</td>
+                                <td class="sell-price">₹{{ p.price }}</td>
+                                <td class="profit" [class.negative]="calculateProfit(p) < 0">
+                                    ₹{{ calculateProfit(p) }}
+                                </td>
+                                <td>
+                                    <span class="status-badge" [class.in-stock]="p.inStock"
+                                        [class.out-of-stock]="!p.inStock">
+                                        {{ p.inStock ? 'In Stock' : 'Out of Stock' }}
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr *ngIf="paginatedStock.length === 0">
+                                <td colspan="7" class="no-data">No products found.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Pagination Controls -->
+                <div class="pagination-controls" *ngIf="filteredStock.length > itemsPerPage">
+                    <button class="page-btn" (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1">
+                        &laquo; Prev
+                    </button>
+                    <span class="page-info">Page {{ currentPage }} of {{ totalPages }}</span>
+                    <button class="page-btn" (click)="changePage(currentPage + 1)"
+                        [disabled]="currentPage === totalPages">
+                        Next &raquo;
+                    </button>
+                </div>
+            </div>
+
+            <!-- TAB: ADD PRODUCT -->
+            <div *ngIf="activeTab === 'add'" class="dashboard-grid">
+                <!-- Bulk Import Card -->
+                <section class="dashboard-card bulk-card">
+                    <div class="card-header">
+                        <h2>📤 Bulk Import</h2>
+                        <p>Upload an Excel file to add multiple products at once.</p>
+                    </div>
+                    <div class="card-body">
+                        <div class="step">
+                            <span class="step-num">1</span>
+                            <button type="button" class="action-btn outline" (click)="downloadTemplate()">
+                                Download Template
+                            </button>
+                        </div>
+                        <div class="step">
+                            <span class="step-num">2</span>
+                            <div class="file-upload-wrapper">
+                                <label for="excelUpload" class="action-btn primary">
+                                    Select Excel File
+                                </label>
+                                <input type="file" id="excelUpload" (change)="onFileChange($event)"
+                                    accept=".xlsx, .xls, .csv">
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Manual Entry Card -->
+                <section class="dashboard-card form-card">
+                    <div class="card-header">
+                        <h2>✍️ Add Single Product</h2>
+                        <p>Manually enter product details.</p>
+                    </div>
+                    <div class="card-body">
+                        <form (ngSubmit)="onSubmit()" class="product-form">
+                            <div class="form-group full-width">
+                                <label>Product Name</label>
+                                <input type="text" [(ngModel)]="product.name" name="name" required
+                                    placeholder="Ex: Gold Hoop Earrings">
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Purchased Price (₹)</label>
+                                    <input type="number" [(ngModel)]="product.purchasedPrice" name="purchasedPrice"
+                                        placeholder="150">
+                                </div>
+                                <div class="form-group">
+                                    <label>Selling Price (₹)</label>
+                                    <input type="number" [(ngModel)]="product.price" name="price" required
+                                        placeholder="299">
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Category</label>
+                                <select [(ngModel)]="product.category" name="category">
+                                    <option *ngFor="let cat of categories" [value]="cat">{{ cat }}</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Description</label>
+                                <textarea [(ngModel)]="product.description" name="description" rows="3"
+                                    placeholder="Product details..."></textarea>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label>Image URL</label>
+                                <input type="text" [(ngModel)]="product.imageUrl" name="imageUrl"
+                                    placeholder="http://example.com/image.jpg">
+                            </div>
+
+                            <div class="form-actions">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" [(ngModel)]="product.inStock" name="inStock">
+                                    <span class="checkmark"></span>
+                                    In Stock
+                                </label>
+                                <button type="submit" class="action-btn submit">Add Product</button>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</div>

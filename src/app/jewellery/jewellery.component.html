@@ -1,0 +1,73 @@
+<div class="jewellery-page">
+    <!-- Hero Banner -->
+    <header class="jewellery-hero">
+        <div class="hero-decoration"></div>
+        <div class="hero-content">
+            <h1>Jewellery that <span class="text-gold-gradient">Defines Elegance</span></h1>
+            <p>Discover our exclusive handcrafted collection.</p>
+        </div>
+    </header>
+
+    <!-- Category Cards -->
+    <section class="categories-section">
+        <h2 class="section-title">Shop by Category</h2>
+        <div class="category-grid">
+            <div class="category-card" *ngFor="let cat of categories" (click)="filterByCategory(cat.name)">
+                <div class="card-inner">
+                    <div class="card-icon"></div> <!-- CSS shape placeholder -->
+                    <h3>{{cat.name}}</h3>
+                    <button class="shop-btn">View Collection</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products -->
+    <section class="featured-section" *ngIf="isFiltered">
+        <h2 class="section-title">{{sectionTitle}}</h2>
+        <div class="product-grid">
+            <div class="product-card" *ngFor="let product of displayedProducts">
+                <img *ngIf="product.imageUrl" [src]="product.imageUrl" [alt]="product.name" class="product-image"
+                    (error)="product.imageUrl = null">
+                <div *ngIf="!product.imageUrl" class="product-image-placeholder"></div>
+                <div class="product-details">
+                    <h3>{{product.name}}</h3>
+                    <p class="price">₹{{product.price}}</p>
+                    <button class="add-cart-btn" (click)="addToCart(product)">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-controls" *ngIf="isFiltered && totalPages > 1">
+            <button (click)="changePage(currentPage - 1)" [disabled]="currentPage === 1"
+                class="page-btn">Previous</button>
+
+            <button *ngFor="let page of pagesArray" (click)="changePage(page)" [class.active]="currentPage === page"
+                class="page-btn">
+                {{page}}
+            </button>
+
+            <button (click)="changePage(currentPage + 1)" [disabled]="currentPage === totalPages"
+                class="page-btn">Next</button>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="why-us-section">
+        <div class="why-us-content">
+            <div class="feature-box">
+                <h4>Authentic Design</h4>
+                <p>Handcrafted by master artisans with decades of experience.</p>
+            </div>
+            <div class="feature-box">
+                <h4>Purest Gold</h4>
+                <p>Certified purity ensuring the best value for your investment.</p>
+            </div>
+            <div class="feature-box">
+                <h4>Lifetime Warranty</h4>
+                <p>We stand by the quality of every piece we create.</p>
+            </div>
+        </div>
+    </section>
+</div>

@@ -1,0 +1,52 @@
+<div class="admin-container">
+    <!-- Login Section -->
+    <div *ngIf="!isLoggedIn" class="login-box">
+        <h2>Admin Login</h2>
+        <input type="text" [(ngModel)]="loginData.username" placeholder="Username">
+        <input type="password" [(ngModel)]="loginData.password" placeholder="Password">
+        <button (click)="onLogin()">Login</button>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div *ngIf="isLoggedIn" class="dashboard">
+        <h1>Admin Dashboard</h1>
+
+        <div class="add-product-form">
+            <h3>Add New Item</h3>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" [(ngModel)]="newProduct.name">
+            </div>
+            <div class="form-group">
+                <label>Price</label>
+                <input type="number" [(ngModel)]="newProduct.price">
+            </div>
+            <div class="form-group">
+                <label>Category</label>
+                <select [(ngModel)]="newProduct.category">
+                    <option *ngFor="let cat of categories" [value]="cat">{{cat}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Image URL</label>
+                <input type="text" [(ngModel)]="newProduct.imageUrl">
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                <textarea [(ngModel)]="newProduct.description"></textarea>
+            </div>
+            <button (click)="addProduct()">Add Product</button>
+        </div>
+
+        <div class="product-list">
+            <h3>Inventory</h3>
+            <div class="product-card" *ngFor="let product of products">
+                <img [src]="product.imageUrl" alt="{{product.name}}">
+                <div class="info">
+                    <h4>{{product.name}}</h4>
+                    <p>{{product.category}} - ${{product.price}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

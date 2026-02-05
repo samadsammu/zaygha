@@ -1,0 +1,107 @@
+.categories {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 2.5rem;
+    padding: 6rem 2rem;
+    max-width: 1400px;
+    /* Wider for luxury feel */
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .categories {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.category-card {
+    aspect-ratio: 3/4;
+    /* Taller elegant shape */
+    background: linear-gradient(145deg, #111111, #080808);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    border-radius: 4px;
+    /* Sharper corners for modern luxury */
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Glassmorphism/Glow Effect */
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary-gold);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6), inset 0 0 20px rgba(212, 175, 55, 0.05);
+}
+
+.category-card:hover::before {
+    opacity: 1;
+}
+
+.card-title {
+    font-size: 2.5rem;
+    background: var(--gold-text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 0.8rem;
+    font-family: 'Playfair Display', serif;
+    transform: translateY(20px);
+    transition: transform 0.5s ease;
+}
+
+.category-card:hover .card-title {
+    transform: translateY(0);
+}
+
+.card-subtitle {
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    margin-bottom: 3rem;
+    opacity: 0.7;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.card-button {
+    display: inline-block;
+    padding: 1rem 3rem;
+    background: transparent;
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.8rem;
+    transition: all 0.4s ease;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.card-button:hover {
+    background: var(--gold-gradient);
+    color: #000;
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+}

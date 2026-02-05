@@ -1,0 +1,13 @@
+<header class="header">
+    <div class="logo-container">
+        <a routerLink="/" class="logo-link">
+            <h1 class="logo-text">Zaygha</h1>
+            <p class="tagline">Your style begins here</p>
+        </a>
+    </div>
+    <nav class="nav-links">
+        <a routerLink="/cart" class="cart-link">
+            <span class="cart-icon">🛒</span> Cart ({{ cartCount$ | async }})
+        </a>
+    </nav>
+</header>
