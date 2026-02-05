@@ -181,25 +181,73 @@
 @media (max-width: 768px) {
     .cart-layout {
         grid-template-columns: 1fr;
+        gap: 2rem;
     }
 
-    .cart-header,
+    /* Hide table header on mobile */
+    .cart-header {
+        display: none;
+    }
+
     .cart-row {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        text-align: center;
+        grid-template-columns: auto 1fr;
+        grid-template-areas:
+            "img info"
+            "img qty"
+            "img action";
+        gap: 0.8rem 1rem;
+        padding: 1rem 0;
+        align-items: start;
+        text-align: left;
     }
 
     .product-info {
-        flex-direction: column;
-        text-align: center;
+        display: contents;
     }
 
+    .cart-product-img,
+    .product-img-placeholder {
+        grid-area: img;
+        width: 100px;
+        height: 100px;
+        border-radius: 4px;
+    }
+
+    .product-details {
+        grid-area: info;
+        padding: 0;
+        text-align: left;
+    }
+
+    .product-details h3 {
+        font-size: 1rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .unit-price {
+        display: block;
+        margin-bottom: 0.2rem;
+    }
+
+    /* Move Quantity and Total */
     .qty-control {
-        margin: 0 auto;
+        grid-area: qty;
+        margin: 0;
+        transform: scale(0.9);
+        transform-origin: left;
+    }
+
+    /* We can hide item total if space is tight, OR show it below qty */
+    .item-total {
+        display: none;
+        /* Hide per-item total on mobile to save space, subtotal is enough */
     }
 
     .remove-btn {
-        text-align: center;
+        grid-area: action;
+        text-align: left;
+        font-size: 0.8rem;
+        color: #ff4444;
+        margin-top: -5px;
     }
 }

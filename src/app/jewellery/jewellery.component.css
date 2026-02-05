@@ -267,11 +267,111 @@
 
 @media (max-width: 768px) {
     .hero-content h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 2rem;
+        margin: 3rem 0 1.5rem;
     }
 
     .category-grid,
     .product-grid {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.8rem;
+        /* Tighter gap */
+    }
+
+    .category-card {
+        height: auto;
+        /* Remove fixed height */
+        aspect-ratio: 3/4;
+        /* Consistent Aspect Ratio */
+        padding: 1rem;
+    }
+
+    .card-icon {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 1rem;
+    }
+
+    .category-card h3 {
+        font-size: 1.1rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .shop-btn {
+        padding: 0.4rem 1rem;
+        font-size: 0.7rem;
+        width: 100%;
+    }
+
+    /* Loading & Error Styles */
+    .loading-container,
+    .error-container {
+        text-align: center;
+        padding: 3rem;
+        color: var(--text-light);
+    }
+
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(212, 175, 55, 0.3);
+        border-radius: 50%;
+        border-top-color: var(--primary-gold);
+        animation: spin 1s ease-in-out infinite;
+        margin: 0 auto 1rem;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .error-container p {
+        color: #ff4444;
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .retry-btn {
+        background: transparent;
+        border: 1px solid var(--primary-gold);
+        color: var(--primary-gold);
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .retry-btn:hover {
+        background: var(--primary-gold);
+        color: #000;
+    }
+
+    /* Product Card Mobile refinements */
+    .product-details {
+        padding: 1rem 0.5rem;
+        /* Reduce padding */
+    }
+
+    .product-details h3 {
+        font-size: 0.95rem;
+        /* Smaller title */
+        margin-bottom: 0.3rem;
+    }
+
+    .price {
+        font-size: 0.9rem;
+        margin-bottom: 0.8rem;
+    }
+
+    .add-cart-btn {
+        padding: 0.6rem 0.5rem;
+        /* Compact button */
+        font-size: 0.75rem;
+        width: 100%;
     }
 }

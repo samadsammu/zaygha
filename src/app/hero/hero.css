@@ -154,12 +154,33 @@
 
 /* Responsive */
 @media (max-width: 768px) {
+    .hero {
+        height: 55vh;
+        /* Further reduced height for mobile */
+        min-height: 400px;
+        /* Ensure content fits */
+    }
+
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        /* Smaller title */
+        margin-bottom: 1rem;
+    }
+
+    .hero-title .highlight {
+        margin-top: 0.2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 0.9rem;
+        /* Smaller subtitle */
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
     }
 
     .hero-card {
-        padding: 3rem 1.5rem;
+        padding: 2rem 1.5rem;
+        /* Tighter padding */
         margin: 0 1rem;
         width: auto;
     }

@@ -12,7 +12,7 @@ import { RouterLink } from '@angular/router';
 export class CategorySelection {
   categories = [
     { title: 'Jewellery', subtitle: 'Shine with grace', buttonText: 'Enter Jewellery', link: '/jewellery' },
-    { title: 'Dresses', subtitle: 'Wear your elegance', buttonText: 'Enter Dresses', link: '/dresses' },
-    { title: 'Crafts', subtitle: 'Art in every detail', buttonText: 'Enter Crafts', link: '/crafts' }
+    { title: 'Couture', subtitle: 'Wear your elegance', buttonText: 'Enter Couture', link: '/couture' },
+    // { title: 'Crafts', subtitle: 'Art in every detail', buttonText: 'Enter Crafts', link: '/crafts' }
   ];
 }

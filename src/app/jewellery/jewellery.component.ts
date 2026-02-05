@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductService } from '../services/product.service';
 import { CartService } from '../services/cart.service';
+import { SnackbarService } from '../shared/snackbar/snackbar.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-jewellery',
@@ -12,7 +14,7 @@ import { CartService } from '../services/cart.service';
 })
 export class JewelleryComponent implements OnInit {
 
-   categories = [
+    categories = [
         { name: 'Earrings', image: 'assets/dummy-earrings.jpg' },
         { name: 'Necklaces', image: 'assets/dummy-necklaces.jpg' },
         { name: 'Bangles', image: 'assets/dummy-bangles.jpg' },
@@ -31,8 +33,10 @@ export class JewelleryComponent implements OnInit {
 
     constructor(
         private productService: ProductService,
-        private cartService: CartService
-    ) {}
+        private cartService: CartService,
+        private snackbar: SnackbarService,
+        private router: Router
+    ) { }
 
     ngOnInit() {
         this.productService.getProducts().subscribe({
@@ -55,7 +59,11 @@ export class JewelleryComponent implements OnInit {
 
     addToCart(product: any) {
         this.cartService.addToCart(product);
-        alert(`${product.name} added to cart!`);
+        this.snackbar.show(
+            `${product.name} added to bag`,
+            'View Cart',
+            () => this.router.navigate(['/cart'])
+        );
     }
 
     // ✅ FILTER
@@ -70,9 +78,11 @@ export class JewelleryComponent implements OnInit {
 
         this.updatePagination();
 
-        document
-            .querySelector('.featured-section')
-            ?.scrollIntoView({ behavior: 'smooth' });
+        setTimeout(() => {
+            document
+                .querySelector('.featured-section')
+                ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
     }
 
     updatePagination() {

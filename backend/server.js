@@ -5,6 +5,7 @@ const cors = require('cors');
 
 const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
+const orderRoutes = require('./routes/orderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -13,9 +14,26 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
+// Logging Middleware
+app.use((req, res, next) => {
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const method = req.method;
+    const url = req.originalUrl; // Use originalUrl to get the full path
+
+    console.log(`[${new Date().toISOString()}] REQUEST - IP: ${ip} | Method: ${method} | URL: ${url}`);
+
+    // Log response status when finished
+    res.on('finish', () => {
+        console.log(`[${new Date().toISOString()}] RESPONSE - Status: ${res.statusCode} | URL: ${url}`);
+    });
+
+    next();
+});
+
 // Routes
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/orders', orderRoutes);
 
 // MongoDB Connection
 mongoose.connect(process.env.MONGO_URI, {

@@ -1,27 +1,36 @@
 .categories {
-    display: grid;
-    grid-template-columns: repeat(1, 1fr);
-    gap: 2.5rem;
-    padding: 6rem 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    /* Smaller gap for mobile */
+    padding: 3rem 1rem;
+    /* Reduced padding */
     max-width: 1400px;
-    /* Wider for luxury feel */
     margin: 0 auto;
 }
 
 @media (min-width: 768px) {
     .categories {
-        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+        /* Restore gap */
+        padding: 6rem 2rem;
+        /* Restore padding */
     }
 }
 
 .category-card {
-    aspect-ratio: 3/4;
+    aspect-ratio: 4/4;
     /* Taller elegant shape */
     background: linear-gradient(145deg, #111111, #080808);
     border: 1px solid rgba(212, 175, 55, 0.3);
     border-radius: 4px;
     /* Sharper corners for modern luxury */
-    padding: 2rem;
+    padding: 1rem;
+    /* Compact padding for mobile */
+    width: calc(50% - 0.5rem);
+    /* Flex: 2 per row on mobile */
+    min-width: 140px;
     text-align: center;
     transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
     position: relative;
@@ -30,6 +39,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+@media (min-width: 768px) {
+    .category-card {
+        width: 300px;
+        /* Fixed width or percentage for desktop */
+        flex: 0 1 30%;
+    }
 }
 
 /* Glassmorphism/Glow Effect */
@@ -95,8 +112,33 @@
     font-size: 0.8rem;
     transition: all 0.4s ease;
     position: relative;
-    z-index: 2;
     overflow: hidden;
+}
+
+@media (max-width: 768px) {
+    .category-card {
+        aspect-ratio: 4/5;
+        /* Slightly shorter than desktop */
+        padding: 1rem;
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-subtitle {
+        font-size: 0.85rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .card-button {
+        padding: 0.6rem 1rem;
+        /* Updated to smaller size requested */
+        font-size: 0.75rem;
+        width: 100%;
+        /* Full width button looks better on small cards */
+    }
 }
 
 .card-button:hover {

@@ -47,6 +47,10 @@ export class CartService {
         this.cartItemsSubject.next(currentItems.filter(item => item.id !== id));
     }
 
+    clearCart() {
+        this.cartItemsSubject.next([]);
+    }
+
     updateQuantity(id: string, change: number) {
         const currentItems = this.cartItemsSubject.value;
         const item = currentItems.find(i => i.id === id);
